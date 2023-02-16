@@ -98,6 +98,13 @@ var shortcutFunctions = {
   toggleReadability: function() {
     vm.toggleReadability()
   },
+  toggleShortcuts: function() {
+    if (vm.settings === 'shortcuts') {
+      vm.showSettings('')    
+    } else if (vm.settings === '') {
+      vm.showSettings('shortcuts')
+    }
+  },
   toggleCreate: function() {
     if (vm.settings === '') {
       vm.showSettings('create')
@@ -156,6 +163,7 @@ var keybindings = {
   "o": shortcutFunctions.openItemLink,
   "i": shortcutFunctions.toggleReadability,
   "c": shortcutFunctions.toggleCreate,
+  "q": shortcutFunctions.toggleShortcuts,
   "r": shortcutFunctions.toggleItemRead,
   "R": shortcutFunctions.markAllRead,
   "s": shortcutFunctions.toggleItemStarred,
@@ -175,6 +183,7 @@ var codebindings = {
   "KeyO": shortcutFunctions.openItemLink,
   "KeyI": shortcutFunctions.toggleReadability,
   "KeyC": shortcutFunctions.toggleCreate,
+  "KeyQ": shortcutFunctions.toggleShortcuts,
   //"r": shortcutFunctions.toggleItemRead,
   //"KeyR": shortcutFunctions.markAllRead,
   "KeyS": shortcutFunctions.toggleItemStarred,
