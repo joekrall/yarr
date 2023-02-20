@@ -1,4 +1,4 @@
-VERSION=2.3
+VERSION=2.33
 GITHASH=$(shell git rev-parse --short=8 HEAD)
 
 CGO_ENABLED=1
@@ -25,6 +25,12 @@ build_windows:
 	go run bin/generate_versioninfo.go -version "$(VERSION)" -outfile src/platform/versioninfo.rc
 	windres -i src/platform/versioninfo.rc -O coff -o src/platform/versioninfo.syso
 	GOOS=windows GOARCH=amd64 go build -tags "sqlite_foreign_keys release windows" -ldflags="$(GO_LDFLAGS) -H windowsgui" -o _output/windows/yarr.exe src/main.go
+
+build_wsl:
+	mkdir -p _output/wsl
+	go run bin/generate_versioninfo.go -version "$(VERSION)" -outfile src/platform/versioninfo.rc
+	x86_64-w64-mingw32-windres -i src/platform/versioninfo.rc -O coff -o src/platform/versioninfo.syso
+	GOOS=windows GOARCH=amd64 go build -tags "sqlite_foreign_keys release wsl" -ldflags="$(GO_LDFLAGS) -H windowsgui" -o _output/wsl/yarr.exe src/main.go
 
 serve:
 	go run -tags "sqlite_foreign_keys" src/main.go -db local.db
