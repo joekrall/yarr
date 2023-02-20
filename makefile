@@ -29,8 +29,8 @@ build_windows:
 build_wsl:
 	mkdir -p _output/wsl
 	go run bin/generate_versioninfo.go -version "$(VERSION)" -outfile src/platform/versioninfo.rc
-	x86_64-w64-mingw32-windres -i src/platform/versioninfo.rc -O coff -o src/platform/versioninfo.syso
-	GOOS=windows GOARCH=amd64 go build -tags "sqlite_foreign_keys release wsl" -ldflags="$(GO_LDFLAGS) -H windowsgui" -o _output/wsl/yarr.exe src/main.go
+	x86_64-w64-mingw32-windres -i src/platform/versioninfo.rc -O coff -o src/platform/versioninfo.syso 
+	GOOS=windows GOARCH=amd64 CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc go build -tags "sqlite_foreign_keys release wsl" -ldflags="$(GO_LDFLAGS) -H windowsgui" -o _output/wsl/yarr.exe src/main.go
 
 serve:
 	go run -tags "sqlite_foreign_keys" src/main.go -db local.db

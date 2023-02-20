@@ -11,6 +11,10 @@ Then run one of the corresponding commands:
     make build_linux    # -> _output/linux/yarr
     make build_windows  # -> _output/windows/yarr.exe
 
+    # cross-compiling from WSL to Windows will require additional tooling
+    # for instance, WSL: Ubuntu 22.04 required gcc-multilib and gcc-mingw-264
+    make build_wsl      # -> _output/wsl/yarr.exe
+
     # host-specific cli version (no gui)
     make build_default  # -> _output/yarr
 
